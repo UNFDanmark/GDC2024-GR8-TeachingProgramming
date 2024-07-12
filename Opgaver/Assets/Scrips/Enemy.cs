@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private int bulletCooldown = 10;
     void Start()
     {
         print("Jeg er ond");
