@@ -10,9 +10,10 @@ public class Shooting : MonoBehaviour
     private float leftOverCooldown = 0;
     private bool rapidFire = false;
     public float bulletSpeed = 1;
+    private AudioSource audio;
     void Start()
     {
-        
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -28,11 +29,7 @@ public class Shooting : MonoBehaviour
             if (Input.GetKey(KeyCode.Space) && leftOverCooldown <= 0)
             {
                 leftOverCooldown = coolDownTimeRapid;
-                GameObject bulletClone = Instantiate(bulletPrefab,transform.position, Quaternion.identity);
-                Vector3 bulletDirection = transform.forward * 1000 * bulletSpeed;
-                Rigidbody bulletRB = bulletClone.GetComponent<Rigidbody>();
-                bulletRB.AddForce(bulletDirection);
-                GameObject.Destroy(bulletClone, 1.5f);
+                ShootBullet();
                 
             }
         }
@@ -41,12 +38,18 @@ public class Shooting : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && leftOverCooldown <= 0)
             {
                 leftOverCooldown = coolDownTimeNormal;
-                GameObject bulletClone = Instantiate(bulletPrefab,transform.position, Quaternion.identity);
-                Vector3 bulletDirection = transform.forward * 1000 * bulletSpeed;
-                Rigidbody bulletRB = bulletClone.GetComponent<Rigidbody>();
-                bulletRB.AddForce(bulletDirection);
-                GameObject.Destroy(bulletClone, 1.5f);
+                ShootBullet();
             }
         }
+    }
+
+    void ShootBullet()
+    {
+        GameObject bulletClone = Instantiate(bulletPrefab,transform.position, Quaternion.identity);
+        Vector3 bulletDirection = 1000 * bulletSpeed * transform.forward;
+        audio.Play();
+        Rigidbody bulletRB = bulletClone.GetComponent<Rigidbody>();
+        bulletRB.AddForce(bulletDirection);
+        GameObject.Destroy(bulletClone, 1.5f);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
 {
     public float speed = 1f;
     private Rigidbody rb;
+    public GameObject gameOverCanvas;
     
     void Start()
     {
@@ -21,5 +22,12 @@ public class PlayerMove : MonoBehaviour
         move.z = Input.GetAxisRaw("Vertical");
         rb.velocity = speed * 200 * Time.deltaTime * move;
     }
-    
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            gameOverCanvas.SetActive(true);
+        }
+    }
 }

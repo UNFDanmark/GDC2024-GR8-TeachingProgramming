@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     
     public GameObject spawnedCreature;
     public bool infiniteSpawnAmount = true; //Overrides totalSpawnAmount
+    public bool enableSpawner = false;
     public int totalSpawnAmount = 25;
     public float timeBeforeStarting = 0;
     public int amountPerWave = 1;
@@ -37,7 +38,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        if (enableSpawner) timer += Time.deltaTime;
 
         if (timer > timeBeforeStarting)
         {
